@@ -1,0 +1,838 @@
+<div
+  class="prs-stage"
+  role="img"
+  aria-label="Parser. Ideas complejas, soluciones directas."
+  style="
+    position: relative;
+    width: 100%;
+    height: 280px;
+    box-sizing: border-box;
+    padding: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    overflow: hidden;
+    --loop: 4.4s;
+    --t0: 2.7s;
+    isolation: isolate;
+    background: linear-gradient(35deg, #f4608a 0%, #ec4aa0 55%, #dc44d0 100%);
+  "
+>
+  <div class="prs-bg prs-bg-a"></div>
+  <div class="prs-bg prs-bg-b"></div>
+
+  <svg
+    class="prs-logo"
+    viewBox="112 25 768 406"
+    aria-hidden="true"
+    style="
+      position: relative;
+      z-index: 1;
+      display: block;
+      width: min(88%, 480px);
+      height: auto;
+      overflow: visible;
+    "
+  >
+    <style>
+      /* ================= Fondo: brillos que giran por la pantalla ================= */
+      .prs-bg {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 150%;
+        aspect-ratio: 1;
+        z-index: 0;
+        pointer-events: none;
+        will-change: transform;
+      }
+
+      .prs-bg-a {
+        background: radial-gradient(
+          ellipse 36% 36% at 50% 86%,
+          rgba(255, 176, 32, 1) 0%,
+          rgba(255, 160, 40, 0.65) 40%,
+          rgba(255, 160, 40, 0) 100%
+        );
+        animation: prs-bgspin 32s linear infinite;
+      }
+
+      .prs-bg-b {
+        background: radial-gradient(
+          ellipse 34% 34% at 50% 14%,
+          rgba(201, 60, 248, 0.95) 0%,
+          rgba(201, 60, 248, 0.55) 42%,
+          rgba(201, 60, 248, 0) 100%
+        );
+        animation: prs-bgspin 46s linear infinite reverse;
+      }
+
+      @keyframes prs-bgspin {
+        from {
+          transform: translate(-50%, -50%) rotate(45deg);
+        }
+        to {
+          transform: translate(-50%, -50%) rotate(405deg);
+        }
+      }
+
+      /* ================= Entrada (una sola vez) ================= */
+      .prs-draw {
+        stroke-dasharray: 1;
+        animation: prs-draw 0.75s cubic-bezier(0.3, 0.7, 0.2, 1) backwards;
+        animation-delay: var(--d, 0s);
+      }
+
+      .prs-dotg {
+        transform-box: fill-box;
+        transform-origin: center;
+        animation:
+          prs-pop 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) 0.6s backwards,
+          prs-bump var(--loop) ease-in-out var(--t0) infinite;
+      }
+
+      .prs-wm {
+        font-family:
+          Inter,
+          "Segoe UI",
+          system-ui,
+          -apple-system,
+          "Helvetica Neue",
+          Arial,
+          sans-serif;
+        font-weight: 800;
+        font-size: 70px;
+        letter-spacing: -1px;
+      }
+
+      .prs-wm-in {
+        animation: prs-rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 1.3s backwards;
+      }
+
+      .prs-tag {
+        font-family:
+          Inter,
+          "Segoe UI",
+          system-ui,
+          -apple-system,
+          "Helvetica Neue",
+          Arial,
+          sans-serif;
+        font-weight: 500;
+        font-size: 30px;
+        letter-spacing: 0.3px;
+      }
+
+      .prs-w {
+        animation: prs-fa 0.8s ease-out backwards;
+        animation-delay: var(--d, 0s);
+      }
+
+      /* ================= Brillos orbitando el nodo ================= */
+      .prs-orbit {
+        fill: none;
+        stroke: #fff;
+        stroke-linecap: round;
+        opacity: 0;
+        transform-box: fill-box;
+        transform-origin: center;
+        animation:
+          prs-fadein 0.8s ease-out 1.7s forwards,
+          prs-spin 3.4s linear infinite;
+      }
+
+      .prs-orbit-b {
+        animation:
+          prs-fadein 0.8s ease-out 1.9s forwards,
+          prs-spin 5.2s linear infinite reverse;
+      }
+
+      /* ================= Flujo continuo dentro del trazo ================= */
+      .prs-flow {
+        fill: none;
+        stroke: #fff;
+        stroke-width: 2.5;
+        stroke-dasharray: 4 12;
+        opacity: 0;
+        animation:
+          prs-flow 0.8s linear infinite,
+          prs-flowin 1s ease-out 1.9s forwards;
+      }
+
+      /* ================= Bucle: pulsos, chispas, onda ================= */
+      .prs-pulse {
+        fill: none;
+        stroke: #fff;
+        stroke-width: 12;
+        stroke-dasharray: 0.28 3;
+        stroke-dashoffset: 0.28;
+        opacity: 0;
+      }
+
+      .prs-p-in {
+        animation: prs-in var(--loop) cubic-bezier(0.45, 0, 0.55, 1) infinite;
+        animation-delay: calc(var(--t0) + var(--s, 0s));
+      }
+
+      .prs-p-bar {
+        animation: prs-bar var(--loop) cubic-bezier(0.45, 0, 0.7, 0.8) var(--t0)
+          infinite;
+      }
+
+      .prs-p-arm {
+        animation: prs-arm var(--loop) cubic-bezier(0.3, 0.2, 0.5, 1) var(--t0)
+          infinite;
+      }
+
+      .prs-spark {
+        fill: #fff;
+        opacity: 0;
+      }
+
+      .prs-s-in {
+        animation: prs-spark-in var(--loop) ease-in infinite;
+        animation-delay: calc(var(--t0) + var(--s, 0s));
+      }
+
+      .prs-s-out {
+        animation: prs-spark-out var(--loop) ease-in var(--t0) infinite;
+      }
+
+      .prs-ring {
+        fill: none;
+        stroke: #fff;
+        stroke-width: 2.5;
+        vector-effect: non-scaling-stroke;
+        opacity: 0;
+        transform-box: fill-box;
+        transform-origin: center;
+        animation: prs-ring var(--loop) cubic-bezier(0.2, 0.6, 0.3, 1) var(--t0)
+          infinite;
+      }
+
+      .prs-core {
+        opacity: 0;
+        animation: prs-core var(--loop) ease-in-out var(--t0) infinite;
+      }
+
+      /* El impulso "empuja" las flechas */
+      .prs-nudge-in {
+        animation: prs-nudge-in var(--loop) ease-in-out infinite;
+        animation-delay: calc(var(--t0) + var(--s, 0s));
+      }
+
+      .prs-nudge-out {
+        animation: prs-nudge-out var(--loop) ease-in-out var(--t0) infinite;
+      }
+
+      /* Destello que barre el logo completo (solo se ve sobre el negro) */
+      .prs-sheen {
+        animation: prs-sheen var(--loop) cubic-bezier(0.5, 0, 0.3, 1) var(--t0)
+          infinite;
+      }
+
+      @keyframes prs-draw {
+        from {
+          stroke-dashoffset: 1;
+        }
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+
+      @keyframes prs-pop {
+        from {
+          transform: scale(0);
+        }
+        to {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes prs-rise {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes prs-fa {
+        from {
+          fill-opacity: 0;
+        }
+        to {
+          fill-opacity: 1;
+        }
+      }
+
+      @keyframes prs-fadein {
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes prs-spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes prs-flow {
+        to {
+          stroke-dashoffset: -16;
+        }
+      }
+
+      @keyframes prs-flowin {
+        to {
+          opacity: 0.32;
+        }
+      }
+
+      /* Entradas: los tres pulsos llegan al vértice a la vez (0–22 %) */
+      @keyframes prs-in {
+        0% {
+          stroke-dashoffset: 0.28;
+          opacity: 0;
+        }
+        3% {
+          opacity: 1;
+        }
+        17% {
+          opacity: 1;
+        }
+        22% {
+          stroke-dashoffset: -1;
+          opacity: 0;
+        }
+        100% {
+          stroke-dashoffset: -1;
+          opacity: 0;
+        }
+      }
+
+      @keyframes prs-nudge-in {
+        0%,
+        19% {
+          transform: translateY(0);
+        }
+        24% {
+          transform: translateY(5px);
+        }
+        36%,
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes prs-spark-in {
+        0%,
+        21.5% {
+          opacity: 0;
+          transform: translateY(0);
+        }
+        22% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        27.5% {
+          opacity: 1;
+          transform: translateY(19px);
+        }
+        28.5%,
+        100% {
+          opacity: 0;
+          transform: translateY(19px);
+        }
+      }
+
+      /* Nodo central (31–48 %) */
+      @keyframes prs-bump {
+        0%,
+        31% {
+          transform: scale(1);
+        }
+        35% {
+          transform: scale(1.32);
+        }
+        48%,
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes prs-core {
+        0%,
+        31% {
+          opacity: 0;
+        }
+        35% {
+          opacity: 0.95;
+        }
+        50%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes prs-ring {
+        0%,
+        31% {
+          transform: scale(1);
+          opacity: 0;
+        }
+        32% {
+          transform: scale(1);
+          opacity: 0.9;
+        }
+        58%,
+        100% {
+          transform: scale(3.4);
+          opacity: 0;
+        }
+      }
+
+      /* Salida única (37–68 %) */
+      @keyframes prs-spark-out {
+        0%,
+        37.5% {
+          opacity: 0;
+          transform: translateX(0);
+        }
+        38% {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        43% {
+          opacity: 1;
+          transform: translateX(20px);
+        }
+        44%,
+        100% {
+          opacity: 0;
+          transform: translateX(20px);
+        }
+      }
+
+      @keyframes prs-bar {
+        0%,
+        43% {
+          stroke-dashoffset: 0.28;
+          opacity: 0;
+        }
+        44% {
+          opacity: 1;
+        }
+        51% {
+          opacity: 1;
+        }
+        53.5%,
+        100% {
+          stroke-dashoffset: -1;
+          opacity: 0;
+        }
+      }
+
+      @keyframes prs-arm {
+        0%,
+        51% {
+          stroke-dashoffset: 0.28;
+          opacity: 0;
+        }
+        52% {
+          opacity: 1;
+        }
+        62% {
+          opacity: 1;
+        }
+        66%,
+        100% {
+          stroke-dashoffset: -1;
+          opacity: 0;
+        }
+      }
+
+      @keyframes prs-nudge-out {
+        0%,
+        51% {
+          transform: translateX(0);
+        }
+        56% {
+          transform: translateX(8px);
+        }
+        68%,
+        100% {
+          transform: translateX(0);
+        }
+      }
+
+      /* Destello (70–92 %) */
+      @keyframes prs-sheen {
+        0%,
+        70% {
+          transform: translateX(0);
+        }
+        92%,
+        100% {
+          transform: translateX(1100px);
+        }
+      }
+    </style>
+
+    <defs>
+      <g id="prs-shape" fill="none" stroke="#fff" stroke-width="36">
+        <path d="M336,55 V155"></path>
+        <path
+          d="M246,96 L288,138 C300,150 320,155 336,155 C352,155 372,150 384,138 L426,96"
+        ></path>
+        <g transform="rotate(-90 336 228)">
+          <path d="M336,34 V155"></path>
+          <path
+            d="M246,96 L288,138 C300,150 320,155 336,155 C352,155 372,150 384,138 L426,96"
+          ></path>
+        </g>
+        <g transform="rotate(180 336 228)">
+          <path d="M336,55 V155"></path>
+          <path
+            d="M246,96 L288,138 C300,150 320,155 336,155 C352,155 372,150 384,138 L426,96"
+          ></path>
+        </g>
+        <path d="M392,228 H527"></path>
+        <path
+          d="M456,136 L490,170 C512,192 527,205 527,228 C527,251 512,264 490,286 L456,320"
+        ></path>
+        <circle cx="336" cy="228" r="24" fill="#fff" stroke="none"></circle>
+        <text
+          class="prs-wm"
+          x="596"
+          y="214"
+          text-anchor="start"
+          fill="#fff"
+          stroke="none"
+        >
+          Parser
+        </text>
+      </g>
+      <mask
+        id="prs-m"
+        maskUnits="userSpaceOnUse"
+        x="100"
+        y="20"
+        width="800"
+        height="420"
+      >
+        <use href="#prs-shape"></use>
+      </mask>
+      <linearGradient id="prs-sg" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#fff" stop-opacity="0"></stop>
+        <stop offset=".5" stop-color="#fff" stop-opacity=".75"></stop>
+        <stop offset="1" stop-color="#fff" stop-opacity="0"></stop>
+      </linearGradient>
+    </defs>
+
+    <!-- Onda central (detrás del logo) -->
+    <circle class="prs-ring" cx="336" cy="228" r="24"></circle>
+
+    <!-- ENTRADA 1 · arriba -->
+    <g>
+      <g fill="none" stroke="#000" stroke-width="36">
+        <path
+          class="prs-draw"
+          pathLength="1"
+          style="--d: 0s"
+          d="M336,55 V155"
+        ></path>
+        <g class="prs-nudge-in" style="--s: 0s">
+          <path
+            class="prs-draw"
+            pathLength="1"
+            style="--d: 0.1s"
+            d="M246,96 L288,138 C300,150 320,155 336,155 C352,155 372,150 384,138 L426,96"
+          ></path>
+        </g>
+        <path class="prs-flow" d="M336,55 V155"></path>
+        <path
+          class="prs-pulse prs-p-in"
+          pathLength="1"
+          style="--s: 0s"
+          d="M336,55 V155"
+        ></path>
+        <g class="prs-nudge-in" style="--s: 0s">
+          <path
+            class="prs-flow"
+            d="M246,96 L288,138 C300,150 320,155 336,155"
+          ></path>
+          <path
+            class="prs-flow"
+            d="M426,96 L384,138 C372,150 352,155 336,155"
+          ></path>
+          <path
+            class="prs-pulse prs-p-in"
+            pathLength="1"
+            style="--s: 0s"
+            d="M246,96 L288,138 C300,150 320,155 336,155"
+          ></path>
+          <path
+            class="prs-pulse prs-p-in"
+            pathLength="1"
+            style="--s: 0s"
+            d="M426,96 L384,138 C372,150 352,155 336,155"
+          ></path>
+        </g>
+      </g>
+      <circle
+        class="prs-spark prs-s-in"
+        style="--s: 0s"
+        cx="336"
+        cy="178"
+        r="5"
+      ></circle>
+    </g>
+
+    <!-- ENTRADA 2 · izquierda (girada -90°) -->
+    <g transform="rotate(-90 336 228)">
+      <g fill="none" stroke="#000" stroke-width="36">
+        <path
+          class="prs-draw"
+          pathLength="1"
+          style="--d: 0.15s"
+          d="M336,34 V155"
+        ></path>
+        <g class="prs-nudge-in" style="--s: 0.1s">
+          <path
+            class="prs-draw"
+            pathLength="1"
+            style="--d: 0.25s"
+            d="M246,96 L288,138 C300,150 320,155 336,155 C352,155 372,150 384,138 L426,96"
+          ></path>
+        </g>
+        <path class="prs-flow" d="M336,34 V155"></path>
+        <path
+          class="prs-pulse prs-p-in"
+          pathLength="1"
+          style="--s: 0.1s"
+          d="M336,34 V155"
+        ></path>
+        <g class="prs-nudge-in" style="--s: 0.1s">
+          <path
+            class="prs-flow"
+            d="M246,96 L288,138 C300,150 320,155 336,155"
+          ></path>
+          <path
+            class="prs-flow"
+            d="M426,96 L384,138 C372,150 352,155 336,155"
+          ></path>
+          <path
+            class="prs-pulse prs-p-in"
+            pathLength="1"
+            style="--s: 0.1s"
+            d="M246,96 L288,138 C300,150 320,155 336,155"
+          ></path>
+          <path
+            class="prs-pulse prs-p-in"
+            pathLength="1"
+            style="--s: 0.1s"
+            d="M426,96 L384,138 C372,150 352,155 336,155"
+          ></path>
+        </g>
+      </g>
+      <circle
+        class="prs-spark prs-s-in"
+        style="--s: 0.1s"
+        cx="336"
+        cy="178"
+        r="5"
+      ></circle>
+    </g>
+
+    <!-- ENTRADA 3 · abajo (girada 180°) -->
+    <g transform="rotate(180 336 228)">
+      <g fill="none" stroke="#000" stroke-width="36">
+        <path
+          class="prs-draw"
+          pathLength="1"
+          style="--d: 0.3s"
+          d="M336,55 V155"
+        ></path>
+        <g class="prs-nudge-in" style="--s: 0.2s">
+          <path
+            class="prs-draw"
+            pathLength="1"
+            style="--d: 0.4s"
+            d="M246,96 L288,138 C300,150 320,155 336,155 C352,155 372,150 384,138 L426,96"
+          ></path>
+        </g>
+        <path class="prs-flow" d="M336,55 V155"></path>
+        <path
+          class="prs-pulse prs-p-in"
+          pathLength="1"
+          style="--s: 0.2s"
+          d="M336,55 V155"
+        ></path>
+        <g class="prs-nudge-in" style="--s: 0.2s">
+          <path
+            class="prs-flow"
+            d="M246,96 L288,138 C300,150 320,155 336,155"
+          ></path>
+          <path
+            class="prs-flow"
+            d="M426,96 L384,138 C372,150 352,155 336,155"
+          ></path>
+          <path
+            class="prs-pulse prs-p-in"
+            pathLength="1"
+            style="--s: 0.2s"
+            d="M246,96 L288,138 C300,150 320,155 336,155"
+          ></path>
+          <path
+            class="prs-pulse prs-p-in"
+            pathLength="1"
+            style="--s: 0.2s"
+            d="M426,96 L384,138 C372,150 352,155 336,155"
+          ></path>
+        </g>
+      </g>
+      <circle
+        class="prs-spark prs-s-in"
+        style="--s: 0.2s"
+        cx="336"
+        cy="178"
+        r="5"
+      ></circle>
+    </g>
+
+    <!-- SALIDA ÚNICA · derecha -->
+    <g fill="none" stroke="#000" stroke-width="36">
+      <path
+        class="prs-draw"
+        pathLength="1"
+        style="--d: 0.75s"
+        d="M392,228 H527"
+      ></path>
+      <g class="prs-nudge-out">
+        <path
+          class="prs-draw"
+          pathLength="1"
+          style="--d: 0.9s"
+          d="M456,136 L490,170 C512,192 527,205 527,228 C527,251 512,264 490,286 L456,320"
+        ></path>
+      </g>
+      <path class="prs-flow" d="M392,228 H527"></path>
+      <path class="prs-pulse prs-p-bar" pathLength="1" d="M392,228 H527"></path>
+      <g class="prs-nudge-out">
+        <path
+          class="prs-flow"
+          d="M527,228 C527,205 512,192 490,170 L456,136"
+        ></path>
+        <path
+          class="prs-flow"
+          d="M527,228 C527,251 512,264 490,286 L456,320"
+        ></path>
+        <path
+          class="prs-pulse prs-p-arm"
+          pathLength="1"
+          d="M527,228 C527,205 512,192 490,170 L456,136"
+        ></path>
+        <path
+          class="prs-pulse prs-p-arm"
+          pathLength="1"
+          d="M527,228 C527,251 512,264 490,286 L456,320"
+        ></path>
+      </g>
+    </g>
+    <circle class="prs-spark prs-s-out" cx="366" cy="228" r="5"></circle>
+
+    <!-- Brillos que orbitan el nodo (sobre la cola, el más brillante lidera) -->
+    <g class="prs-orbit">
+      <circle
+        cx="336"
+        cy="228"
+        r="39"
+        stroke-width="3"
+        stroke-opacity=".16"
+        stroke-dasharray="78 167"
+      ></circle>
+      <circle
+        cx="336"
+        cy="228"
+        r="39"
+        stroke-width="3"
+        stroke-opacity=".4"
+        stroke-dasharray="46 199"
+        stroke-dashoffset="-32"
+      ></circle>
+      <circle
+        cx="336"
+        cy="228"
+        r="39"
+        stroke-width="3.2"
+        stroke-opacity=".98"
+        stroke-dasharray="16 229"
+        stroke-dashoffset="-62"
+      ></circle>
+    </g>
+    <g class="prs-orbit prs-orbit-b">
+      <circle
+        cx="336"
+        cy="228"
+        r="31"
+        stroke-width="2"
+        stroke-opacity=".22"
+        stroke-dasharray="36 159"
+      ></circle>
+      <circle
+        cx="336"
+        cy="228"
+        r="31"
+        stroke-width="2.2"
+        stroke-opacity=".85"
+        stroke-dasharray="10 185"
+        stroke-dashoffset="-26"
+      ></circle>
+    </g>
+
+    <!-- Nodo central -->
+    <g class="prs-dotg">
+      <circle cx="336" cy="228" r="24" fill="#000"></circle>
+      <circle class="prs-core" cx="336" cy="228" r="10" fill="#fff"></circle>
+    </g>
+
+    <!-- Nombre y lema -->
+    <text
+      class="prs-wm prs-wm-in"
+      x="596"
+      y="214"
+      text-anchor="start"
+      fill="#000"
+    >
+      Parser
+    </text>
+    <text class="prs-tag" text-anchor="start" fill="rgba(0,0,0,.86)">
+      <tspan class="prs-w" x="600" y="258" style="--d: 1.9s">
+        ideas complejas,
+      </tspan>
+      <tspan class="prs-w" x="600" y="288" style="--d: 2.3s">
+        soluciones directas
+      </tspan>
+    </text>
+
+    <!-- Destello: una banda de luz recortada con la forma del logo -->
+    <g mask="url(#prs-m)">
+      <g transform="skewX(-20)">
+        <rect
+          class="prs-sheen"
+          x="0"
+          y="0"
+          width="90"
+          height="560"
+          fill="url(#prs-sg)"
+        ></rect>
+      </g>
+    </g>
+  </svg>
+</div>
