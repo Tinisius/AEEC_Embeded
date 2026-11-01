@@ -639,5 +639,7 @@ function controller() {
   render();
 }
 document.addEventListener("DOMContentLoaded", (event) => {
-  controller();
+  //controller();
 });
+controller();
+console.log("acutaualizado!!!!");
