@@ -638,4 +638,6 @@ function controller() {
 
   render();
 }
-controller();
+document.addEventListener("DOMContentLoaded", (event) => {
+  controller();
+});
